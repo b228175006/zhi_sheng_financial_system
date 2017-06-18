@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 
 import java.security.MessageDigest;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -27,19 +28,19 @@ public class UserServiceTest {
     private UserService userService;
     @Test
     public void findByUserNameLike() throws Exception {
-        User user = userService.findByUserNameLike("admin");
+        User user = userService.findByUserNameLike("管理员");
         System.out.println("user = " + user);
     }
 
     @Test
     public void findById() throws Exception {
-        User user = userService.findById("id");
+        User user = userService.findById("402880f55cba4057015cba40750a0000");
         System.out.println("user = " + user);
     }
 
     @Test
     public void findByUserNameAndPassword() throws Exception {
-        User user = userService.findByUserNameAndPassword("admin", MD5Util.toMD5("ZhiShengSXY"));
+        User user = userService.findByUserNameAndPassword("admin", MD5Util.toMD5("888888"));
         System.out.println("user = " + user);
     }
 
@@ -50,6 +51,16 @@ public class UserServiceTest {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void addUser(){
+        User user = new User();
+        user.setUserName("admin");
+        user.setUserNikeName("管理员");
+        user.setPassword(MD5Util.toMD5("888888"));
+        user.setLastLoginTime(new Date());
+        userService.save(user);
     }
 
 }

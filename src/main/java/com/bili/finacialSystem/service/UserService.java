@@ -1,15 +1,12 @@
 package com.bili.finacialSystem.service;
 
 import com.bili.finacialSystem.entity.User;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 用户Service接口
@@ -46,7 +43,7 @@ public interface UserService extends JpaRepository<User,String>{
      * @param userId 用户ID
      * @return
      */
-    @Query("update User set delMark = true where id=:userId")
+    @Query("update User set delMark = 'true' where id=:userId")
     @Modifying
     void delUser(@Param("userId") String userId);
 
