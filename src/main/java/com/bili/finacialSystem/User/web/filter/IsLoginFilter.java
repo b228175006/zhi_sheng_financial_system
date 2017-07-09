@@ -1,7 +1,7 @@
-package com.bili.finacialSystem.web.filter;
+package com.bili.finacialSystem.User.web.filter;
 
 
-import com.bili.finacialSystem.entity.User;
+import com.bili.finacialSystem.User.entity.User;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
@@ -32,7 +32,7 @@ public class IsLoginFilter implements Filter {
         if(user!=null){
             filterChain.doFilter(servletRequest,servletResponse);
         }else{
-            res.sendRedirect("/index.html");
+            res.sendRedirect("/login.html");
         }
 
     }

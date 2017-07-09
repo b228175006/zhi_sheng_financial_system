@@ -1,9 +1,11 @@
-package com.bili.finacialSystem.web;
+package com.bili.finacialSystem.User.web;
 
-import com.bili.finacialSystem.dto.RestMsg;
-import com.bili.finacialSystem.entity.User;
-import com.bili.finacialSystem.service.UserService;
+import com.bili.finacialSystem.User.dto.RestMsg;
+import com.bili.finacialSystem.User.entity.User;
+import com.bili.finacialSystem.User.service.UserRepository;
+import com.bili.finacialSystem.User.service.UserService;
 import com.bili.utils.MD5Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +27,10 @@ import java.util.Map;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    @Resource(name = "UserService")
+    @Resource(name = "userService")
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(value = "/in",method = RequestMethod.POST)
     @ResponseBody
@@ -36,14 +40,14 @@ public class LoginController {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)){
             return new RestMsg("请输入用户名和密码",RestMsg.ERROR);
         }
-        User user = userService.findByUserNameAndPassword(userName, MD5Util.toMD5(password));
+        User user = userRepository.findByUserNameAndPassword(userName, MD5Util.toMD5(password));
         if(user == null){
             return new RestMsg("用户名或密码不正确",RestMsg.ERROR);
         }else {
             HttpSession session = res.getSession();
             session.setAttribute("user", user);
             user.setLastLoginTime(new Date());
-            userService.save(user);
+            userRepository.save(user);
             Map<String,String> data = new HashMap<String,String>();
             data.put("userNikeName",user.getUserNikeName());
             data.put("userId",user.getId());
@@ -58,6 +62,6 @@ public class LoginController {
         if (session!=null){
             session = null;
         }
-        return "/index.html";
+        return "/login.html";
     }
 }

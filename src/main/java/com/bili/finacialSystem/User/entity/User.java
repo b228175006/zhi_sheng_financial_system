@@ -1,7 +1,6 @@
-package com.bili.finacialSystem.entity;
+package com.bili.finacialSystem.User.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;

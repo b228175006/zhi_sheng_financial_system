@@ -1,8 +1,6 @@
-package com.bili.finacialSystem.dto;
+package com.bili.finacialSystem.User.dto;
 
 import java.util.Map;
-
-import static com.sun.javafx.tools.resource.DeployResource.Type.data;
 
 /**
  * web信息返回封装
